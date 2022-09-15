@@ -1,12 +1,12 @@
 package omniProduto;
 
-import view.ListaProduto;
+import view.MenuInicial;
 
 public class omniProduto {
 
     public static void main(String[] args) {
-        ListaProduto listagem = new ListaProduto();
-        listagem.setVisible(true);
+        MenuInicial ExibirMenu = new MenuInicial();
+        ExibirMenu.setVisible(true);
     }
     
 }
