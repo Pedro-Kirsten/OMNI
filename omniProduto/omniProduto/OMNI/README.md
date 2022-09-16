@@ -1,2 +1,0 @@
-# OMNI
-CRUD
