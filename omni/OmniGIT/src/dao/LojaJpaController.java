@@ -32,7 +32,8 @@ public class LojaJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Loja loja) throws PreexistingEntityException, Exception {
+    public void create(Loja loja) {
+        
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -41,7 +42,6 @@ public class LojaJpaController implements Serializable {
             em.getTransaction().commit();
         } catch (Exception ex) {
             if (findLoja(loja.getIdLoja()) != null) {
-                throw new PreexistingEntityException("Loja " + loja + " already exists.", ex);
             }
             throw ex;
         } finally {
@@ -51,7 +51,7 @@ public class LojaJpaController implements Serializable {
         }
     }
 
-    public void edit(Loja loja) throws NonexistentEntityException, Exception {
+    public void edit(Loja loja) {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -63,7 +63,6 @@ public class LojaJpaController implements Serializable {
             if (msg == null || msg.length() == 0) {
                 int id = loja.getIdLoja();
                 if (findLoja(id) == null) {
-                    throw new NonexistentEntityException("The loja with id " + id + " no longer exists.");
                 }
             }
             throw ex;

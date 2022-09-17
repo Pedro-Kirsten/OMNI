@@ -13,7 +13,7 @@ public class Loja implements Serializable {
     @Column(name= "idLoja")
     private int idLoja;    
     
-    @Column(name="'nomeLoja'")
+    @Column(name="nomeLoja")
     private String nomeLoja;
     
     @Column(name="cnpj")

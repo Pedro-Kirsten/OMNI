@@ -1,5 +1,6 @@
 package omnigit;
 
+import view.CadastroLoja;
 import view.LojaLista;
 
 public class OmniGIT {
