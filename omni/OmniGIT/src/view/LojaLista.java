@@ -6,6 +6,8 @@
 package view;
 
 import dao.LojaJpaController;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import util.EntityManagerUtil;
 import model.Loja;
@@ -18,7 +20,7 @@ public class LojaLista extends javax.swing.JFrame {
 
     LojaJpaController lojaDao = new LojaJpaController(EntityManagerUtil.getEntityManagerFactory());
 
-    String col[] = {"idLoja", "nomeLoja", "cnpj", "telefone", "local"};
+    String col[] = {"ID", "Nome", "CNPJ", "Telefone", "Local"};
     DefaultTableModel tableModel = new DefaultTableModel(col, 0) {
 
         @Override
@@ -27,6 +29,7 @@ public class LojaLista extends javax.swing.JFrame {
             return false;
         }
     };
+
     public LojaLista() {
         initComponents();
         this.Tabela.setModel(tableModel);
@@ -42,13 +45,21 @@ public class LojaLista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollBar1 = new javax.swing.JScrollBar();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabela = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Lojas");
+        setName("czzz"); // NOI18N
 
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+
+        Tabela.setBackground(new java.awt.Color(255, 255, 255));
+        Tabela.setForeground(new java.awt.Color(0, 0, 0));
         Tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -68,9 +79,28 @@ public class LojaLista extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        Tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TabelaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Tabela);
 
-        jButton1.setText("jButton1");
+        jButton2.setBackground(new java.awt.Color(0, 102, 51));
+        jButton2.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(204, 204, 204));
+        jButton2.setText("ADICIONAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(153, 0, 0));
+        jButton1.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(204, 204, 204));
+        jButton1.setText("EXCLUIR");
+        jButton1.setMaximumSize(new java.awt.Dimension(100, 23));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -81,19 +111,29 @@ public class LojaLista extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(65, 65, 65))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(17, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addGap(0, 16, Short.MAX_VALUE))
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -110,15 +150,44 @@ public class LojaLista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        CadastroLoja lojaForm = new CadastroLoja(this, true);
+        lojaForm.setVisible(true);
+
+        this.findAllLoja();}//GEN-LAST:event_jButton2ActionPerformed
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        CadastroLoja produtoForm = new CadastroLoja(this, true);
-        produtoForm.setVisible(true);
+        int opcao = JOptionPane.showConfirmDialog(null, "Confirmar exclusão dos produtos");
 
-        this.findAllLoja();}//GEN-LAST:event_jButton1ActionPerformed
+        if (opcao == JOptionPane.YES_OPTION) {
 
-    /**
-     * @param args the command line arguments
-     */
+            int indices[] = this.Tabela.getSelectedRows();
+
+            for (int i = indices.length - 1; i >= 0; i--) {
+                int idLojaAserRemovido = (int) this.tableModel.getValueAt(indices[i], 0);
+                this.lojaDao.destroy(idLojaAserRemovido);
+            }
+
+            this.findAllLoja();
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void TabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaMouseClicked
+if (evt.getClickCount() == 2) {
+
+            int row = ((JTable) evt.getSource()).getSelectedRow();
+
+            int lojaId = (int) this.tableModel.getValueAt(row, 0);
+
+            CadastroLoja lojaForm = new CadastroLoja(this, true, lojaId);
+            lojaForm.setVisible(true);
+
+            this.findAllLoja();
+        }    }//GEN-LAST:event_TabelaMouseClicked
+
+   
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -148,11 +217,12 @@ public class LojaLista extends javax.swing.JFrame {
             public void run() {
                 new LojaLista().setVisible(true);
             }
-            
+
         }
         );
     }
-     private void findAllLoja() {
+
+    private void findAllLoja() {
         for (int i = this.tableModel.getRowCount() - 1; i >= 0; i--) {
             this.tableModel.removeRow(i);
         }
@@ -164,19 +234,19 @@ public class LojaLista extends javax.swing.JFrame {
                 lojaRecuperado.getLocal(),
                 lojaRecuperado.getNomeLoja(),
                 lojaRecuperado.getTelefone()};
-                    
-            
 
             this.tableModel.addRow(lojaAserAdicionado);
 
         }
-     }
-    
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tabela;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

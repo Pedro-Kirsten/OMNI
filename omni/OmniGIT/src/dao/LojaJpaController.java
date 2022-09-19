@@ -73,26 +73,33 @@ public class LojaJpaController implements Serializable {
         }
     }
 
-    public void destroy(int id) throws NonexistentEntityException {
-        EntityManager em = null;
+    public void destroy(int id)  {
+   EntityManager em = null;
         try {
-            em = getEntityManager();
+            em = this.emf.createEntityManager();
             em.getTransaction().begin();
             Loja loja;
             try {
                 loja = em.getReference(Loja.class, id);
-                loja.getIdLoja();
-            } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The loja with id " + id + " no longer exists.", enfe);
+
+                em.remove(loja);
+
+                em.getTransaction().commit();
+
+            } catch (Exception ex) {
+
+                System.out.println("O produto com o id" + id + " foi excluído.");
             }
-            em.remove(loja);
-            em.getTransaction().commit();
+
+        } catch (Exception e) {
+
+            System.out.println(e);
+
         } finally {
             if (em != null) {
                 em.close();
             }
-        }
-    }
+    }}
 
     public List<Loja> findLojaEntities() {
         return findLojaEntities(true, -1, -1);
@@ -139,5 +146,6 @@ public class LojaJpaController implements Serializable {
             em.close();
         }
     }
+    
     
 }

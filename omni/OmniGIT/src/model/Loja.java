@@ -7,41 +7,42 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="loja")
+@Table(name = "loja")
 public class Loja implements Serializable {
+
     @Id
-    @Column(name= "idLoja")
-    private int idLoja;    
-    
-    @Column(name="nomeLoja")
+    @Column(name = "idLoja")
+    private int IdLoja;
+
+    @Column(name = "nomeLoja")
     private String nomeLoja;
-    
-    @Column(name="cnpj")
-    private String cnpj;
-    
-    @Column(name="telefone")
+
+    @Column(name = "telefone")
     private String telefone;
-    
-    @Column(name="localizacao")
+
+    @Column(name = "localizacao")
     private String local;
 
-    public Loja(int idLoja, String nomeLoja, String cnpj, String telefone, String local) {
-        this.idLoja = idLoja;
+    @Column(name = "cnpj")
+    private String cnpj;
+
+    public Loja(int IdLoja, String nomeLoja, String telefone, String local, String cnpj) {
+        this.IdLoja = IdLoja;
         this.nomeLoja = nomeLoja;
-        this.cnpj = cnpj;
         this.telefone = telefone;
         this.local = local;
+        this.cnpj = cnpj;
     }
 
     public Loja() {
     }
 
     public int getIdLoja() {
-        return idLoja;
+        return IdLoja;
     }
 
-    public void setIdLoja(int idLoja) {
-        this.idLoja = idLoja;
+    public void setIdLoja(int IdLoja) {
+        this.IdLoja = IdLoja;
     }
 
     public String getNomeLoja() {
@@ -50,15 +51,6 @@ public class Loja implements Serializable {
 
     public void setNomeLoja(String nomeLoja) {
         this.nomeLoja = nomeLoja;
-    }
-
-    public String getCnpj() {
-        return cnpj;
-        
-    }
-
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
     }
 
     public String getTelefone() {
@@ -76,8 +68,13 @@ public class Loja implements Serializable {
     public void setLocal(String local) {
         this.local = local;
     }
-    
-    
-    
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
     
 }
