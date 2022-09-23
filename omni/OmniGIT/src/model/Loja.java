@@ -3,6 +3,8 @@ package model;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,10 +13,11 @@ import javax.persistence.Table;
 public class Loja implements Serializable {
 
     @Id
-    @Column(name = "idLoja")
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column(name = "idloja")
     private int IdLoja;
 
-    @Column(name = "nomeLoja")
+    @Column(name = "nomeloja")
     private String nomeLoja;
 
     @Column(name = "telefone")
