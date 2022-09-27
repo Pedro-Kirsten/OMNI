@@ -5,22 +5,22 @@
  */
 package view;
 
-import dao.LojaJpaController;
+import dao.ProdutoJpaController;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import util.EntityManagerUtil;
-import model.Loja;
+import model.Produto;
 
 /**
  *
  * @author Pedro
  */
-public class LojaLista extends javax.swing.JFrame {
+public class ProdutoLista extends javax.swing.JFrame {
 
-    LojaJpaController lojaDao = new LojaJpaController(EntityManagerUtil.getEntityManagerFactory());
+    ProdutoJpaController produtoDao = new ProdutoJpaController(EntityManagerUtil.getEntityManagerFactory());
 
-    String col[] = {"ID", "Nome", "CNPJ", "Telefone", "Local"};
+    String col[] = {"Código", "Nome", "Marca", "Preço"};
     DefaultTableModel tableModel = new DefaultTableModel(col, 0) {
 
         @Override
@@ -30,10 +30,10 @@ public class LojaLista extends javax.swing.JFrame {
         }
     };
 
-    public LojaLista() {
+    public ProdutoLista() {
         initComponents();
         this.Tabela.setModel(tableModel);
-        this.findAllLoja();
+        this.findAllProduto();
     }
 
     /**
@@ -49,8 +49,9 @@ public class LojaLista extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabela = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Lojas");
@@ -62,17 +63,17 @@ public class LojaLista extends javax.swing.JFrame {
         Tabela.setForeground(new java.awt.Color(0, 0, 0));
         Tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "idLoja", "nomeLoja", "cnpj", "telefone", "local"
+                "Código", "Nome", "Marca", "Preço"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -86,16 +87,6 @@ public class LojaLista extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Tabela);
 
-        jButton2.setBackground(new java.awt.Color(0, 102, 51));
-        jButton2.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(204, 204, 204));
-        jButton2.setText("ADICIONAR");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         jButton1.setBackground(new java.awt.Color(153, 0, 0));
         jButton1.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(204, 204, 204));
@@ -104,6 +95,21 @@ public class LojaLista extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setBackground(new java.awt.Color(0, 102, 51));
+        jButton2.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(204, 204, 204));
+        jButton2.setText("ADICIONAR");
+
+        jButton3.setBackground(new java.awt.Color(0, 102, 51));
+        jButton3.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        jButton3.setForeground(new java.awt.Color(204, 204, 204));
+        jButton3.setText("ADICIONAR");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -119,10 +125,15 @@ public class LojaLista extends javax.swing.JFrame {
                         .addContainerGap(17, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25))))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jButton2)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -130,10 +141,15 @@ public class LojaLista extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jButton2)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -150,12 +166,6 @@ public class LojaLista extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        CadastroLoja lojaForm = new CadastroLoja(this, true);
-        lojaForm.setVisible(true);
-
-        this.findAllLoja();}//GEN-LAST:event_jButton2ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int opcao = JOptionPane.showConfirmDialog(null, "Confirmar exclusão dos produtos");
 
@@ -164,29 +174,34 @@ public class LojaLista extends javax.swing.JFrame {
             int indices[] = this.Tabela.getSelectedRows();
 
             for (int i = indices.length - 1; i >= 0; i--) {
-                int idLojaAserRemovido = (int) this.tableModel.getValueAt(indices[i], 0);
-                this.lojaDao.destroy(idLojaAserRemovido);
+                int idProdutoAserRemovido = (int) this.tableModel.getValueAt(indices[i], 0);
+                this.produtoDao.destroy(idProdutoAserRemovido);
             }
 
-            this.findAllLoja();
+            this.findAllProduto();
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void TabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaMouseClicked
-if (evt.getClickCount() == 2) {
+        if (evt.getClickCount() == 2) {
 
             int row = ((JTable) evt.getSource()).getSelectedRow();
 
-            int lojaId = (int) this.tableModel.getValueAt(row, 0);
+            int produtoId = (int) this.tableModel.getValueAt(row, 0);
 
-            CadastroLoja lojaForm = new CadastroLoja(this, true, lojaId);
-            lojaForm.setVisible(true);
+            CadastroProduto produtoForm = new CadastroProduto(this, true, produtoId);
+            produtoForm.setVisible(true);
 
-            this.findAllLoja();
+            this.findAllProduto();
         }    }//GEN-LAST:event_TabelaMouseClicked
 
-   
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        CadastroProduto produtoForm = new CadastroProduto(this, true);
+        produtoForm.setVisible(true);
+        
+        this.findAllProduto();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -202,40 +217,40 @@ if (evt.getClickCount() == 2) {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LojaLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProdutoLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LojaLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProdutoLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LojaLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProdutoLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LojaLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ProdutoLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LojaLista().setVisible(true);
+                new ProdutoLista().setVisible(true);
             }
 
         }
         );
     }
 
-    private void findAllLoja() {
+    private void findAllProduto() {
         for (int i = this.tableModel.getRowCount() - 1; i >= 0; i--) {
             this.tableModel.removeRow(i);
         }
 
-        for (Loja lojaRecuperado : this.lojaDao.findLojaEntities()) {
-            Object[] lojaAserAdicionado = {
-                lojaRecuperado.getIdLoja(),
-                lojaRecuperado.getCnpj(),
-                lojaRecuperado.getLocal(),
-                lojaRecuperado.getNomeLoja(),
-                lojaRecuperado.getTelefone()};
+        for (Produto produtoRecuperado : this.produtoDao.findProdutoEntities()) {
+            Object[] produtoAserAdicionado = {
+                produtoRecuperado.getCodProduto(),
+                produtoRecuperado.getNomeproduto(),
+                produtoRecuperado.getValor(),
+                produtoRecuperado.getMarca(),};
 
-            this.tableModel.addRow(lojaAserAdicionado);
+            this.tableModel.addRow(produtoAserAdicionado);
 
         }
     }
@@ -245,6 +260,7 @@ if (evt.getClickCount() == 2) {
     private javax.swing.JTable Tabela;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;

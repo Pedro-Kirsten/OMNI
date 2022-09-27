@@ -6,7 +6,9 @@
 package view;
 
 import dao.LojaJpaController;
+import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import util.EntityManagerUtil;
@@ -83,6 +85,12 @@ public class LojaLista extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TabelaMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                TabelaMouseEntered(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                TabelaMouseReleased(evt);
+            }
         });
         jScrollPane1.setViewportView(Tabela);
 
@@ -157,7 +165,7 @@ public class LojaLista extends javax.swing.JFrame {
         this.findAllLoja();}//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int opcao = JOptionPane.showConfirmDialog(null, "Confirmar exclusão dos produtos");
+        int opcao = JOptionPane.showConfirmDialog(null, "Confirmar exclusão das Lojas");
 
         if (opcao == JOptionPane.YES_OPTION) {
 
@@ -170,11 +178,11 @@ public class LojaLista extends javax.swing.JFrame {
 
             this.findAllLoja();
         }
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void TabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaMouseClicked
-if (evt.getClickCount() == 2) {
+        if (evt.getClickCount() == 2) {
 
             int row = ((JTable) evt.getSource()).getSelectedRow();
 
@@ -186,7 +194,29 @@ if (evt.getClickCount() == 2) {
             this.findAllLoja();
         }    }//GEN-LAST:event_TabelaMouseClicked
 
-   
+    private void TabelaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaMouseEntered
+
+    }//GEN-LAST:event_TabelaMouseEntered
+
+    private void TabelaMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaMouseReleased
+
+        int r = Tabela.rowAtPoint(evt.getPoint());
+            if (r >= 0 && r < Tabela.getRowCount()) {
+                Tabela.setRowSelectionInterval(r, r);
+            } else {
+                Tabela.clearSelection();
+            }
+
+            int rowindex = Tabela.getSelectedRow();
+            if (rowindex < 0) {
+                return;
+            }
+            if (evt.isPopupTrigger() && evt.getComponent() instanceof JTable) {
+                JPopupMenu popup = createYourPopUp();
+                popup.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+        
+            }//GEN-LAST:event_TabelaMouseReleased
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -249,4 +279,8 @@ if (evt.getClickCount() == 2) {
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    private JPopupMenu createYourPopUp() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
