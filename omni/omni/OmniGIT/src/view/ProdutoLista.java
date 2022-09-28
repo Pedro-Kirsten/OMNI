@@ -54,7 +54,7 @@ public class ProdutoLista extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Lojas");
+        setTitle("Produtos");
         setName("czzz"); // NOI18N
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
@@ -80,9 +80,17 @@ public class ProdutoLista extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        Tabela.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                TabelaMouseDragged(evt);
+            }
+        });
         Tabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TabelaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                TabelaMouseEntered(evt);
             }
         });
         jScrollPane1.setViewportView(Tabela);
@@ -197,11 +205,17 @@ public class ProdutoLista extends javax.swing.JFrame {
         }    }//GEN-LAST:event_TabelaMouseClicked
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        CadastroProduto produtoForm = new CadastroProduto(this, true);
-        produtoForm.setVisible(true);
-        
-        this.findAllProduto();
+        CadastroProduto lojaForm = new CadastroProduto(this, true);
+        lojaForm.setVisible(true);
+
+        this.findAllProduto();  
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void TabelaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaMouseEntered
+    }//GEN-LAST:event_TabelaMouseEntered
+
+    private void TabelaMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaMouseDragged
+    }//GEN-LAST:event_TabelaMouseDragged
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

@@ -5,24 +5,24 @@
  */
 package view;
 
-import dao.LojaJpaController;
+import dao.PessoaJpaController;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import util.EntityManagerUtil;
-import model.Loja;
+import model.Pessoa;
 
 /**
  *
  * @author Pedro
  */
-public class LojaLista extends javax.swing.JFrame {
+public class PessoaLista extends javax.swing.JFrame {
 
-    LojaJpaController lojaDao = new LojaJpaController(EntityManagerUtil.getEntityManagerFactory());
+    PessoaJpaController pessoaDao = new PessoaJpaController(EntityManagerUtil.getEntityManagerFactory());
 
-    String col[] = {"ID", "Nome", "CNPJ", "Telefone", "Local"};
+    String col[] = {"ID", "Nome", "CPF", "Telefone", "Endereço"};
     DefaultTableModel tableModel = new DefaultTableModel(col, 0) {
 
         @Override
@@ -32,10 +32,10 @@ public class LojaLista extends javax.swing.JFrame {
         }
     };
 
-    public LojaLista() {
+    public PessoaLista() {
         initComponents();
         this.Tabela.setModel(tableModel);
-        this.findAllLoja();
+        this.findAllPessoa();
     }
 
     /**
@@ -55,7 +55,7 @@ public class LojaLista extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Lojas");
+        setTitle("Usuarios");
         setName("czzz"); // NOI18N
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
@@ -70,7 +70,7 @@ public class LojaLista extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "idLoja", "nomeLoja", "cnpj", "telefone", "local"
+                "ID", "Nome", "CPF", "Telefone", "Endereço"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -159,24 +159,27 @@ public class LojaLista extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        CadastroLoja lojaForm = new CadastroLoja(this, true);
-        lojaForm.setVisible(true);
-
+        CadastroPessoa pessoaForm = new CadastroPessoa(this, true);
+        pessoaForm.setVisible(true);
+    
+        this.findAllPessoa();
+    }
+/*
         this.findAllLoja();}//GEN-LAST:event_jButton2ActionPerformed
-
+*/
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int opcao = JOptionPane.showConfirmDialog(null, "Confirmar exclusão das Lojas");
+        int opcao = JOptionPane.showConfirmDialog(null, "Confirmar exclusão dos Usuários");
 
         if (opcao == JOptionPane.YES_OPTION) {
 
             int indices[] = this.Tabela.getSelectedRows();
 
             for (int i = indices.length - 1; i >= 0; i--) {
-                int idLojaAserRemovido = (int) this.tableModel.getValueAt(indices[i], 0);
-                this.lojaDao.destroy(idLojaAserRemovido);
+                int idPessoaAserRemovido = (int) this.tableModel.getValueAt(indices[i], 0);
+                this.pessoaDao.destroy(idPessoaAserRemovido);
             }
 
-            this.findAllLoja();
+            this.findAllPessoa();
         }
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -186,12 +189,12 @@ public class LojaLista extends javax.swing.JFrame {
 
             int row = ((JTable) evt.getSource()).getSelectedRow();
 
-            int lojaId = (int) this.tableModel.getValueAt(row, 0);
+            int pessoaId = (int) this.tableModel.getValueAt(row, 0);
 
-            CadastroLoja lojaForm = new CadastroLoja(this, true, lojaId);
-            lojaForm.setVisible(true);
+            CadastroPessoa pessoaForm = new CadastroPessoa(this, true, pessoaId);
+            pessoaForm.setVisible(true);
 
-            this.findAllLoja();
+            this.findAllPessoa();
         }    }//GEN-LAST:event_TabelaMouseClicked
 
     private void TabelaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TabelaMouseEntered
@@ -232,44 +235,45 @@ public class LojaLista extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LojaLista.class
+            java.util.logging.Logger.getLogger(PessoaLista.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LojaLista.class
+            java.util.logging.Logger.getLogger(PessoaLista.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LojaLista.class
+            java.util.logging.Logger.getLogger(PessoaLista.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LojaLista.class
+            java.util.logging.Logger.getLogger(PessoaLista.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LojaLista().setVisible(true);
+                new PessoaLista().setVisible(true);
             }
 
         }
         );
     }
 
-    private void findAllLoja() {
+    private void findAllPessoa() {
         for (int i = this.tableModel.getRowCount() - 1; i >= 0; i--) {
             this.tableModel.removeRow(i);
         }
 
-        for (Loja lojaRecuperado : this.lojaDao.findLojaEntities()) {
-            Object[] lojaAserAdicionado = {
-                lojaRecuperado.getIdLoja(),
-                lojaRecuperado.getCnpj(),
-                lojaRecuperado.getLocal(),
-                lojaRecuperado.getNomeLoja(),
-                lojaRecuperado.getTelefone()};
+        for (Pessoa PessoaRecuperado : this.pessoaDao.findPessoaEntities()) {
+            Object[] pessoaAserAdicionado = {
+                PessoaRecuperado.getIdPessoa(),
+                PessoaRecuperado.getNomePessoa(),
+                PessoaRecuperado.getCpf(),
+                PessoaRecuperado.getTelefone(),
+                PessoaRecuperado.getEndereco()};
 
-            this.tableModel.addRow(lojaAserAdicionado);
+            this.tableModel.addRow(pessoaAserAdicionado);
 
         }
     }

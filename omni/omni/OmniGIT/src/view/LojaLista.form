@@ -103,7 +103,7 @@
                     <Column editable="false" title="idLoja" type="java.lang.Object"/>
                     <Column editable="false" title="nomeLoja" type="java.lang.Object"/>
                     <Column editable="false" title="cnpj" type="java.lang.Object"/>
-                    <Column editable="true" title="telefone" type="java.lang.Object"/>
+                    <Column editable="false" title="telefone" type="java.lang.Object"/>
                     <Column editable="false" title="local" type="java.lang.Object"/>
                   </Table>
                 </Property>

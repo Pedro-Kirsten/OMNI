@@ -60,7 +60,7 @@ public class CadastroPessoa extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastrar Produtos");
+        setTitle("Cadastrar Usuário");
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
 

@@ -61,7 +61,7 @@ public class CadastroLoja extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastrar Produtos");
+        setTitle("Cadastrar Loja");
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
 
@@ -256,7 +256,7 @@ public class CadastroLoja extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if ((this.jcnpj.getText().length() > 13 & (this.jcnpj.getText().length() < 15))){ 
+        if ((this.jcnpj.getText().length() < 13 & (this.jcnpj.getText().length() > 15))){ 
             JOptionPane.showMessageDialog(null, "CNPJ INVÁLIDO!");
             dispose();         
                 
@@ -264,7 +264,7 @@ public class CadastroLoja extends javax.swing.JDialog {
         } else if (this.jlocal.getText().length() < 10) {
              JOptionPane.showMessageDialog(null, "LOCAL INVÁLIDO!");
             dispose(); 
-        } else if (this.tNome.getText().length() < 10) {
+        } else if (this.tNome.getText().length() < 5) {
              JOptionPane.showMessageDialog(null, "NOME INVÁLIDO!");
             dispose(); 
         } else if (this.jtelefone.getText().length() < 8) {
